@@ -44,9 +44,9 @@ function AnimatedMesh({ type }) {
     );
 }
 
-function MiniIsometric({ type, height = '120px' }) {
+function MiniIsometric({ type, height = '100%' }) {
     return (
-        <Box sx={{ height, width: '100%', mb: 2, pointerEvents: 'none' }}>
+        <Box sx={{ height, width: '100%', pointerEvents: 'none' }}>
             <Canvas orthographic camera={{ position: [5, 5, 5], zoom: 40 }}>
                 <ambientLight intensity={0.6} />
                 <directionalLight position={[10, 10, 5]} intensity={1.5} />
@@ -83,7 +83,7 @@ export default function App() {
 
     return (
         <Router>
-            <Box sx={{ flexGrow: 1, backgroundColor: '#f8f9fa', minHeight: '100vh', pt: '64px' }}>
+            <Box sx={{ flexGrow: 1, backgroundColor: '#f8f9fa', minHeight: '100vh', pt: '64px', width: '100%', overflowX: 'hidden' }}>
             {/* Glassmorphic Navbar */}
             <AppBar position="fixed" sx={{ background: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(16px)', color: '#171d25', borderBottom: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 4px 16px rgba(0, 0, 0, 0.05)' }}>
                 <Toolbar sx={{ px: '2rem !important' }}>
@@ -146,7 +146,7 @@ export default function App() {
                 <Route path="/" element={
                     <>
             {/* Hero Section */}
-            <Box sx={{ height: 'calc(100vh - 64px)', display: 'flex', alignItems: 'center', background: 'radial-gradient(100% 100% at top left, #ffffff 0%, #ffffff 98%, rgba(67, 189, 255, 0.4) 98.3%, rgba(255, 255, 255, 0.9) 98.7%, #43BDFF96 100%, #43BDFF 141%)', overflow: 'hidden' }}>
+            <Box sx={{ minHeight: 'calc(100vh - 64px)', py: { xs: 6, md: 0 }, display: 'flex', alignItems: 'center', background: 'radial-gradient(100% 100% at top left, #ffffff 0%, #ffffff 98%, rgba(67, 189, 255, 0.4) 98.3%, rgba(255, 255, 255, 0.9) 98.7%, #43BDFF96 100%, #43BDFF 141%)', overflow: 'hidden' }}>
                 <Container maxWidth="lg">
                     <Grid container spacing={4} alignItems="center">
                         <Grid item xs={12} md={8}>
@@ -159,7 +159,7 @@ export default function App() {
                             <Typography variant="h5" sx={{ mb: 4, fontWeight: 400, lineHeight: 1.5, color: '#000000' }}>
                                 Detects-Measures-Explain & Remediate Bias in AI Models, Datasets and Govern entire lifecycle.
                             </Typography>
-                            <Box sx={{ display: 'flex', gap: 2 }}>
+                            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                                 {/* Claymorphic Buttons */}
                                 <Button variant="contained" sx={{ backgroundColor: 'rgb(65, 153, 224)', color: '#ffffff', borderRadius: '30px', px: 4, py: 1.5, fontSize: '1rem', textTransform: 'none', boxShadow: '0 4px 14px rgba(65, 153, 224, 0.4)', transition: 'all 0.3s ease', '&:hover': { backgroundColor: 'rgb(43, 102, 149)', transform: 'translateY(-2px)', boxShadow: '0 6px 20px rgba(65, 153, 224, 0.6)' } }}>
                                     Start free
@@ -253,7 +253,7 @@ export default function App() {
                                 type: 'cassandra'
                             }
                         ].map((product, index) => (
-                            <Grid container spacing={6} alignItems="center" key={index} direction={{ xs: 'column', md: index % 2 !== 0 ? 'row-reverse' : 'row' }}>
+                            <Grid container spacing={{ xs: 4, md: 6 }} alignItems="center" key={index} direction={{ xs: 'column', md: index % 2 !== 0 ? 'row-reverse' : 'row' }}>
                                     <Grid item xs={12} md={6}>
                                         <Typography variant="h3" component="h3" sx={{ fontWeight: 600, mb: 2, color: '#171d25', fontSize: { xs: '2rem', md: '2.5rem' } }}>
                                             {product.title}
@@ -266,8 +266,8 @@ export default function App() {
                                         </Button>
                                     </Grid>
                                     <Grid item xs={12} md={6}>
-                                        <Box sx={{ height: '400px', width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                            <MiniIsometric type={product.type} height="300px" />
+                                        <Box sx={{ height: { xs: '300px', sm: '350px', md: '400px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                                            <MiniIsometric type={product.type} height="100%" />
                                         </Box>
                                     </Grid>
                             </Grid>
