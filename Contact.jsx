@@ -74,7 +74,7 @@ const countryDialingCodes = [
 
 export default function Contact() {
     return (
-        <Box sx={{ minHeight: 'calc(100vh - 64px)', display: 'flex', alignItems: 'center', py: { xs: 5, md: 8 } }}>
+        <Box sx={{ py: { xs: 5, md: 8 } }}>
             <Container maxWidth="sm">
                 <Typography variant="h2" component="h1" sx={{ fontWeight: 600, mb: { xs: 2, sm: 4 }, color: '#000000', fontSize: { xs: '2.5rem', sm: '3.75rem' } }}>
                     Contact Us

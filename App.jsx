@@ -211,18 +211,16 @@ export default function App() {
             </Box>
 
             {/* Products Grid Section */}
-            <Box sx={{ py: 0 }}>
+            <Box sx={{ py: 8 }}>
                 <Container maxWidth="lg">
-                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', pt: 10, pb: 6 }}>
-                        <Typography variant="h4" component="h2" sx={{ fontWeight: 600, mb: 2, color: '#171d25', textAlign: 'center' }}>
-                            Featured products
-                        </Typography>
-                        <Typography variant="body1" sx={{ color: '#50565e', maxWidth: '800px', fontSize: '1.1rem', mx: 'auto', textAlign: 'center' }}>
-                            Discover our portfolio of secure, enterprise-grade, fully managed database services that support open-source engines and modern applications.
-                        </Typography>
-                    </Box>
+                    <Typography variant="h4" component="h2" sx={{ fontWeight: 600, mb: 2, color: '#171d25', textAlign: 'center' }}>
+                        Featured products
+                    </Typography>
+                    <Typography variant="body1" sx={{ mb: 8, color: '#50565e', maxWidth: '800px', fontSize: '1.1rem', mx: 'auto', textAlign: 'center' }}>
+                        Discover our portfolio of secure, enterprise-grade, fully managed database services that support open-source engines and modern applications.
+                    </Typography>
 
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 8, md: 12 }, pb: 12 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                         {[
                             {
                                 title: 'BiasSense SQL',
@@ -255,8 +253,7 @@ export default function App() {
                                 type: 'cassandra'
                             }
                         ].map((product, index) => (
-                            <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <Grid container spacing={6} alignItems="center" direction={{ xs: 'column', md: index % 2 !== 0 ? 'row-reverse' : 'row' }}>
+                            <Grid container spacing={6} alignItems="center" key={index} direction={{ xs: 'column', md: index % 2 !== 0 ? 'row-reverse' : 'row' }}>
                                     <Grid item xs={12} md={6}>
                                         <Typography variant="h3" component="h3" sx={{ fontWeight: 600, mb: 2, color: '#171d25', fontSize: { xs: '2rem', md: '2.5rem' } }}>
                                             {product.title}
@@ -273,8 +270,7 @@ export default function App() {
                                             <MiniIsometric type={product.type} height="300px" />
                                         </Box>
                                     </Grid>
-                                </Grid>
-                            </Box>
+                            </Grid>
                         ))}
                     </Box>
                 </Container>

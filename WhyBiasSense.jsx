@@ -3,7 +3,7 @@ import { Box, Container, Typography } from '@mui/material';
 
 export default function WhyBiasSense() {
     return (
-        <Box sx={{ minHeight: 'calc(100vh - 64px)', display: 'flex', alignItems: 'center', py: 8 }}>
+        <Box sx={{ py: 8 }}>
             <Container maxWidth="md">
                 <Typography variant="h2" component="h1" sx={{ fontWeight: 600, mb: 4, color: '#000000' }}>
                     Why BiasSense
