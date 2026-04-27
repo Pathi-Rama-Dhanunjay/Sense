@@ -83,9 +83,9 @@ export default function App() {
 
     return (
         <Router>
-            <Box sx={{ flexGrow: 1, backgroundColor: '#f8f9fa', minHeight: '100vh', pt: '64px', width: '100%', overflowX: 'hidden' }}>
+            <Box sx={{ flexGrow: 1, backgroundColor: '#f8f9fa', minHeight: '100vh', pt: '64px', width: '100%', maxWidth: '100vw', overflowX: 'hidden', boxSizing: 'border-box' }}>
             {/* Glassmorphic Navbar */}
-            <AppBar position="fixed" sx={{ background: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(16px)', color: '#171d25', borderBottom: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 4px 16px rgba(0, 0, 0, 0.05)' }}>
+            <AppBar position="fixed" sx={{ background: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(16px)', color: '#171d25', borderBottom: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 4px 16px rgba(0, 0, 0, 0.05)', boxSizing: 'border-box' }}>
                 <Toolbar sx={{ px: '2rem !important' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
                         <SvgIcon sx={{ mr: 1.5, color: '#4299E1', fontSize: '2rem' }}>
@@ -146,7 +146,7 @@ export default function App() {
                 <Route path="/" element={
                     <>
             {/* Hero Section */}
-            <Box sx={{ minHeight: 'calc(100vh - 64px)', py: { xs: 6, md: 0 }, display: 'flex', alignItems: 'center', background: 'radial-gradient(100% 100% at top left, #ffffff 0%, #ffffff 98%, rgba(67, 189, 255, 0.4) 98.3%, rgba(255, 255, 255, 0.9) 98.7%, #43BDFF96 100%, #43BDFF 141%)', overflow: 'hidden' }}>
+            <Box sx={{ minHeight: 'calc(100vh - 64px)', py: { xs: 6, md: 0 }, display: 'flex', alignItems: 'center', background: 'radial-gradient(100% 100% at top left, #ffffff 0%, #ffffff 98%, rgba(67, 189, 255, 0.4) 98.3%, rgba(255, 255, 255, 0.9) 98.7%, #43BDFF96 100%, #43BDFF 141%)', overflow: 'hidden', width: '100%', boxSizing: 'border-box' }}>
                 <Container maxWidth="lg">
                     <Grid container spacing={4} alignItems="center">
                         <Grid item xs={12} md={8}>
@@ -174,7 +174,7 @@ export default function App() {
             </Box>
 
             {/* Trusted By / Scrolling Bar Section */}
-            <Box sx={{ borderTop: '1px solid rgba(0,0,0,0.05)', borderBottom: '1px solid rgba(0,0,0,0.05)', py: 3, backgroundColor: '#ffffff', overflow: 'hidden', display: 'flex', width: '100%' }}>
+            <Box sx={{ borderTop: '1px solid rgba(0,0,0,0.05)', borderBottom: '1px solid rgba(0,0,0,0.05)', py: 3, backgroundColor: '#ffffff', overflow: 'hidden', display: 'flex', width: '100%', boxSizing: 'border-box' }}>
                 <Box sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -211,7 +211,7 @@ export default function App() {
             </Box>
 
             {/* Products Grid Section */}
-            <Box sx={{ py: 8 }}>
+            <Box sx={{ py: { xs: 4, md: 8 }, width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
                 <Container maxWidth="lg">
                     <Typography variant="h4" component="h2" sx={{ fontWeight: 600, mb: 2, color: '#171d25', textAlign: 'center' }}>
                         Featured products
@@ -266,7 +266,7 @@ export default function App() {
                                         </Button>
                                     </Grid>
                                     <Grid item xs={12} md={6}>
-                                        <Box sx={{ height: { xs: '300px', sm: '350px', md: '400px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                                        <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box' }}>
                                             <MiniIsometric type={product.type} height="100%" />
                                         </Box>
                                     </Grid>
