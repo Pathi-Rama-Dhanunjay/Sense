@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, Box, Link, Container, SvgIcon, IconButton, Menu, MenuItem } from '@mui/material';
-import { BrowserRouter as Router, Routes, Route, Link as RouterLink } from 'react-router-dom'; // Keep this import
-import WhyBiasSense from './WhyBiasSense'; // Keep this import
-import AssuranceScore from './AssuranceScore'; // Keep this import
-import HowItWorks from './HowItWorks'; // Keep this import
-import Features from './Features'; // Keep this import
-import Contact from './Contact'; // Keep this import
-import WhatIsAIBias from './WhatIsAIBias'; 
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
+import { AppBar, Toolbar, Typography, Button, Box, Link, Container, SvgIcon, IconButton, Menu, MenuItem, CircularProgress } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route, Link as RouterLink } from 'react-router-dom';
+
+const WhyBiasSense = lazy(() => import('./WhyBiasSense'));
+const AssuranceScore = lazy(() => import('./AssuranceScore'));
+const HowItWorks = lazy(() => import('./HowItWorks'));
+const Features = lazy(() => import('./Features'));
+const Contact = lazy(() => import('./Contact'));
+const WhatIsAIBias = lazy(() => import('./WhatIsAIBias'));
 
 const companies = [
     { name: 'Acme Corp', path: 'M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z' },
@@ -41,6 +42,51 @@ const featuredProducts = [
         type: 'cassandra'
     }
 ];
+
+const AnimatedSection = ({ children, delay = 0, animation = 'slideUp' }) => {
+    const [isVisible, setIsVisible] = useState(false);
+    const domRef = useRef();
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            setIsVisible(entries[0].isIntersecting);
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        const currentRef = domRef.current;
+        if (currentRef) {
+            observer.observe(currentRef);
+        }
+
+        return () => {
+            if (currentRef) {
+                observer.unobserve(currentRef);
+            }
+        };
+    }, []);
+
+    const getTransform = () => {
+        if (animation === 'zoom') {
+            return isVisible ? 'scale(1)' : 'scale(0.8)';
+        }
+        return isVisible ? 'translateY(0)' : 'translateY(40px)';
+    };
+
+    return (
+        <Box
+            ref={domRef}
+            sx={{
+                opacity: isVisible ? 1 : 0,
+                transform: getTransform(),
+                transition: `opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${isVisible ? delay : 0}ms, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${isVisible ? delay : 0}ms`,
+                width: '100%',
+                height: '100%',
+                boxSizing: 'border-box'
+            }}
+        >
+            {children}
+        </Box>
+    );
+};
 
 export default function App() {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -115,6 +161,7 @@ export default function App() {
                 </MenuItem>
             </Menu>
 
+            <Suspense fallback={<Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 64px)' }}><CircularProgress /></Box>}>
             <Routes>
                 <Route path="/" element={
                     <>
@@ -147,6 +194,7 @@ export default function App() {
             </Box>
 
             {/* Trusted By / Scrolling Bar Section */}
+            <AnimatedSection delay={0}>
             <Box sx={{ borderTop: '1px solid rgba(0,0,0,0.05)', borderBottom: '1px solid rgba(0,0,0,0.05)', py: 3, backgroundColor: '#ffffff', overflow: 'hidden', display: 'flex', width: '100%', boxSizing: 'border-box' }}>
                 <Box sx={{
                     display: 'flex',
@@ -182,8 +230,10 @@ export default function App() {
                     ))}
                 </Box>
             </Box>
+            </AnimatedSection>
 
             {/* What is AI Bias Section */}
+            <AnimatedSection delay={100}>
             <Box sx={{ py: { xs: 4, md: 8 }, width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
                 <Container maxWidth="lg">
                     <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 6 }}>
@@ -206,15 +256,19 @@ export default function App() {
                             </Button>
                         </Box>
                         <Box sx={{ flex: 1, width: '100%' }}>
-                            <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box' }}>
-                                <Box component="img" src="https://placehold.co/800x600/4299E1/FFFFFF/png?text=AI+Bias+Illustration" alt="AI bias illustration" sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                            </Box>
+                            <AnimatedSection delay={300} animation="zoom">
+                                <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box', transition: 'transform 0.4s ease, box-shadow 0.4s ease', '&:hover': { transform: 'scale(1.03)', boxShadow: '0 12px 40px rgba(0, 0, 0, 0.12)' } }}>
+                                    <Box component="img" src="https://placehold.co/800x600/4299E1/FFFFFF/png?text=AI+Bias+Illustration" alt="AI bias illustration" sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                </Box>
+                            </AnimatedSection>
                         </Box>
                     </Box>
                 </Container>
             </Box>
+            </AnimatedSection>
 
             {/* Products Grid Section */}
+            <AnimatedSection delay={100}>
             <Box sx={{ pt: { xs: 4, md: 8 }, pb: { xs: 2, md: 4 }, width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
                 <Container maxWidth="lg">
                     <Typography variant="h4" component="h2" sx={{ fontWeight: 600, mb: 2, color: '#171d25', textAlign: 'center' }}>
@@ -225,9 +279,11 @@ export default function App() {
                     </Typography>
                 </Container>
             </Box>
+            </AnimatedSection>
 
             {featuredProducts.map((product, index) => (
-                <Box key={index} sx={{ py: { xs: 4, md: 8 }, width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
+                <AnimatedSection key={index} delay={index * 100}>
+                <Box sx={{ py: { xs: 4, md: 8 }, width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
                     <Container maxWidth="lg">
                         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: index % 2 !== 0 ? 'row-reverse' : 'row' }, alignItems: 'center', gap: 6 }}>
                             <Box sx={{ flex: 1 }}>
@@ -249,13 +305,16 @@ export default function App() {
                                 </Button>
                             </Box>
                             <Box sx={{ flex: 1, width: '100%' }}>
-                                <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box' }}>
-                                    <Box component="img" src={`https://placehold.co/800x600/4299E1/FFFFFF/png?text=${product.title.split(' ').join('+')}`} alt={product.title} sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                </Box>
+                                <AnimatedSection delay={(index * 100) + 300} animation="zoom">
+                                    <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box', transition: 'transform 0.4s ease, box-shadow 0.4s ease', '&:hover': { transform: 'scale(1.03)', boxShadow: '0 12px 40px rgba(0, 0, 0, 0.12)' } }}>
+                                        <Box component="img" src={`https://placehold.co/800x600/4299E1/FFFFFF/png?text=${product.title.split(' ').join('+')}`} alt={product.title} sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    </Box>
+                                </AnimatedSection>
                             </Box>
                         </Box>
                     </Container>
                 </Box>
+                </AnimatedSection>
             ))}
                     </>
                 } />
@@ -266,6 +325,7 @@ export default function App() {
                 <Route path="/what-is-ai-bias" element={<WhatIsAIBias />} />
                 <Route path="/contact" element={<Contact />} />
             </Routes>
+            </Suspense>
 
             </Box>
         </Router>
