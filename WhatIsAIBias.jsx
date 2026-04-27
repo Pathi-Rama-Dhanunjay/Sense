@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Container, Typography, Paper, List, ListItem } from '@mui/material';
 
-// Image import must perfectly match the exact casing of the file for Vercel (Linux)
-import aiBiasImage from './assets/ai-bias.png';
+// Using capital 'B' because Windows Git often hides case-only renames from GitHub
+import aiBiasImage from './assets/ai-Bias.png';
 
 export default function WhatIsAIBias() {
     const [activeSection, setActiveSection] = useState(0);
