@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Container, Typography, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, List, ListItem } from '@mui/material';
+import { Box, Container, Typography, Paper, List, ListItem } from '@mui/material';
 
-// Import your local image here (adjust the filename if it's different)
-import aiBiasImage from './assets/ai-Bias.png';
+// Image import must perfectly match the exact casing of the file for Vercel (Linux)
+import aiBiasImage from './assets/ai-bias.png';
 
 export default function WhatIsAIBias() {
     const [activeSection, setActiveSection] = useState(0);

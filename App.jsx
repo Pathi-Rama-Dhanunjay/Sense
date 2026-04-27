@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, Box, Link, Container, Grid, Card, CardContent, CardActions, SvgIcon, IconButton, Menu, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, Link, Container, Grid, SvgIcon, IconButton, Menu, MenuItem } from '@mui/material';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, OrbitControls } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Routes, Route, Link as RouterLink } from 'react-router-dom'; // Keep this import
 import WhyBiasSense from './WhyBiasSense'; // Keep this import
