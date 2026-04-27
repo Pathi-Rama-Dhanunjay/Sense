@@ -1,7 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, Box, Link, Container, Grid, SvgIcon, IconButton, Menu, MenuItem } from '@mui/material';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float } from '@react-three/drei';
+import React, { useState } from 'react';
+import { AppBar, Toolbar, Typography, Button, Box, Link, Container, SvgIcon, IconButton, Menu, MenuItem } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route, Link as RouterLink } from 'react-router-dom'; // Keep this import
 import WhyBiasSense from './WhyBiasSense'; // Keep this import
 import AssuranceScore from './AssuranceScore'; // Keep this import
@@ -9,80 +7,6 @@ import HowItWorks from './HowItWorks'; // Keep this import
 import Features from './Features'; // Keep this import
 import Contact from './Contact'; // Keep this import
 import WhatIsAIBias from './WhatIsAIBias'; 
-
-function AnimatedMesh({ type }) {
-    const meshRef = useRef();
-
-    // Hook into the render loop to slowly rotate the shape continuously
-    useFrame((state, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.5;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
-
-    return (
-        <mesh ref={meshRef}>
-            {type === 'sql' && <boxGeometry args={[1.5, 1.5, 1.5]} />}
-            {type === 'cosmos' && <octahedronGeometry args={[1.2]} />}
-            {type === 'pg' && <torusGeometry args={[0.8, 0.3, 16, 32]} />}
-            {type === 'mysql' && <cylinderGeometry args={[1, 1, 1.5, 32]} />}
-            {type === 'redis' && <icosahedronGeometry args={[1.2]} />}
-            {type === 'cassandra' && <dodecahedronGeometry args={[1.2]} />}
-            <meshStandardMaterial 
-                color={
-                    type === 'sql' ? '#007FFF' : 
-                    type === 'cosmos' ? '#7A00B2' : 
-                    type === 'mysql' ? '#BF3475' :
-                    type === 'redis' ? '#FFCE61' :
-                    type === 'cassandra' ? '#4299E1' :
-                    '#ffffff'
-                }
-                metalness={0.1} 
-                roughness={0.85} 
-            />
-        </mesh>
-    );
-}
-
-function MiniIsometric({ type, height = '100%' }) {
-    return (
-        <Box sx={{ height, width: '100%', pointerEvents: 'none' }}>
-            <Canvas orthographic camera={{ position: [5, 5, 5], zoom: 40 }}>
-                <ambientLight intensity={0.6} />
-                <directionalLight position={[10, 10, 5]} intensity={1.5} />
-                <Float speed={2} rotationIntensity={0.5} floatIntensity={1.5}>
-                    <AnimatedMesh type={type} />
-                </Float>
-            </Canvas>
-        </Box>
-    );
-}
-
-function FeatureSection({ title, description, reverse, exploreText, alwaysRow, media, linkTo }) {
-    return (
-        <Grid container spacing={{ xs: 4, md: 6 }} alignItems="center" justifyContent={!media ? 'center' : 'flex-start'} direction={alwaysRow ? (reverse ? 'row-reverse' : 'row') : { xs: 'column', md: reverse ? 'row-reverse' : 'row' }}>
-            <Grid item xs={alwaysRow && media ? 6 : 12} md={!media ? 8 : 6} sx={!media ? { textAlign: 'center' } : {}}>
-                <Typography variant="h3" component="h3" sx={{ fontWeight: 600, mb: 2, color: '#171d25', fontSize: { xs: '2rem', md: '2.5rem' } }}>
-                    {title}
-                </Typography>
-                <Typography variant="h6" sx={{ color: '#50565e', mb: 4, lineHeight: 1.6, fontWeight: 400 }}>
-                    {description}
-                </Typography>
-                <Button component={RouterLink} to={linkTo || "#"} variant="outlined" size="large" sx={{ borderRadius: '30px', textTransform: 'none', px: 4, py: 1.5, borderColor: '#4299E1', color: '#4299E1', '&:hover': { backgroundColor: 'rgba(66, 153, 225, 0.1)', borderColor: '#3182ce' } }}>
-                    {exploreText || `Explore ${title.replace('BiasSense ', '')}`} &rarr;
-                </Button>
-            </Grid>
-            {media && (
-                <Grid item xs={alwaysRow ? 6 : 12} md={6}>
-                    <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box' }}>
-                        {media}
-                    </Box>
-                </Grid>
-            )}
-        </Grid>
-    );
-}
 
 const companies = [
     { name: 'Acme Corp', path: 'M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z' },
@@ -291,27 +215,48 @@ export default function App() {
             </Box>
 
             {/* Products Grid Section */}
-            <Box sx={{ py: { xs: 4, md: 8 }, width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
+            <Box sx={{ pt: { xs: 4, md: 8 }, pb: { xs: 2, md: 4 }, width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
                 <Container maxWidth="lg">
                     <Typography variant="h4" component="h2" sx={{ fontWeight: 600, mb: 2, color: '#171d25', textAlign: 'center' }}>
                         Featured products
                     </Typography>
-                    <Typography variant="body1" sx={{ mb: 8, color: '#50565e', maxWidth: '800px', fontSize: '1.1rem', mx: 'auto', textAlign: 'center' }}>
+                    <Typography variant="body1" sx={{ color: '#50565e', maxWidth: '800px', fontSize: '1.1rem', mx: 'auto', textAlign: 'center' }}>
                         Discover our portfolio of secure, enterprise-grade, fully managed database services that support open-source engines and modern applications.
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                        {featuredProducts.map((product, index) => (
-                            <FeatureSection 
-                                key={index}
-                                title={product.title}
-                                description={product.desc}
-                                reverse={index % 2 !== 0}
-                                media={<MiniIsometric type={product.type} height="100%" />}
-                            />
-                        ))}
-                    </Box>
                 </Container>
             </Box>
+
+            {featuredProducts.map((product, index) => (
+                <Box key={index} sx={{ py: { xs: 4, md: 8 }, width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
+                    <Container maxWidth="lg">
+                        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: index % 2 !== 0 ? 'row-reverse' : 'row' }, alignItems: 'center', gap: 6 }}>
+                            <Box sx={{ flex: 1 }}>
+                                <Typography variant="h3" component="h3" sx={{ fontWeight: 600, mb: 2, color: '#171d25', fontSize: { xs: '2rem', md: '2.5rem' } }}>
+                                    {product.title}
+                                </Typography>
+                                <Typography variant="h6" sx={{ color: '#50565e', mb: 4, lineHeight: 1.6, fontWeight: 400 }}>
+                                    {product.desc}
+                                </Typography>
+                                <Button 
+                                    component={RouterLink} 
+                                    to="#" 
+                                    onClick={() => window.scrollTo(0, 0)}
+                                    variant="outlined" 
+                                    size="large" 
+                                    sx={{ borderRadius: '30px', textTransform: 'none', px: 4, py: 1.5, borderColor: '#4299E1', color: '#4299E1', '&:hover': { backgroundColor: 'rgba(66, 153, 225, 0.1)', borderColor: '#3182ce' } }}
+                                >
+                                    Explore {product.title.replace('BiasSense ', '')} &rarr;
+                                </Button>
+                            </Box>
+                            <Box sx={{ flex: 1, width: '100%' }}>
+                                <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box' }}>
+                                    <Box component="img" src={`https://placehold.co/800x600/4299E1/FFFFFF/png?text=${product.title.split(' ').join('+')}`} alt={product.title} sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Container>
+                </Box>
+            ))}
                     </>
                 } />
                 <Route path="/why-biassense" element={<WhyBiasSense />} />
