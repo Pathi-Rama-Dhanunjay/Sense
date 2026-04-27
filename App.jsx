@@ -2,12 +2,14 @@ import React, { useRef, useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, Link, Container, Grid, Card, CardContent, CardActions, SvgIcon, IconButton, Menu, MenuItem } from '@mui/material';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, OrbitControls } from '@react-three/drei';
-import { BrowserRouter as Router, Routes, Route, Link as RouterLink } from 'react-router-dom';
-import WhyBiasSense from './WhyBiasSense';
-import AssuranceScore from './AssuranceScore';
-import HowItWorks from './HowItWorks';
-import Features from './Features';
-import Contact from './Contact';
+import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Routes, Route, Link as RouterLink } from 'react-router-dom'; // Keep this import
+import WhyBiasSense from './WhyBiasSense'; // Keep this import
+import AssuranceScore from './AssuranceScore'; // Keep this import
+import HowItWorks from './HowItWorks'; // Keep this import
+import Features from './Features'; // Keep this import
+import Contact from './Contact'; // Keep this import
+import WhatIsAIBias from './WhatIsAIBias'; 
 
 function AnimatedMesh({ type }) {
     const meshRef = useRef();
@@ -58,6 +60,41 @@ function MiniIsometric({ type, height = '100%' }) {
     );
 }
 
+function FeatureSection({ title, description, reverse, exploreText, alwaysRow, media, linkTo }) {
+    return (
+        <Grid container spacing={{ xs: 4, md: 6 }} alignItems="center" justifyContent={!media ? 'center' : 'flex-start'} direction={alwaysRow ? (reverse ? 'row-reverse' : 'row') : { xs: 'column', md: reverse ? 'row-reverse' : 'row' }}>
+            <Grid item xs={alwaysRow && media ? 6 : 12} md={!media ? 8 : 6} sx={!media ? { textAlign: 'center' } : {}}>
+                <Typography variant="h3" component="h3" sx={{ fontWeight: 600, mb: 2, color: '#171d25', fontSize: { xs: '2rem', md: '2.5rem' } }}>
+                    {title}
+                </Typography>
+                <Typography variant="h6" sx={{ color: '#50565e', mb: 4, lineHeight: 1.6, fontWeight: 400 }}>
+                    {description}
+                </Typography>
+                <Button component={RouterLink} to={linkTo || "#"} variant="outlined" size="large" sx={{ borderRadius: '30px', textTransform: 'none', px: 4, py: 1.5, borderColor: '#4299E1', color: '#4299E1', '&:hover': { backgroundColor: 'rgba(66, 153, 225, 0.1)', borderColor: '#3182ce' } }}>
+                    {exploreText || `Explore ${title.replace('BiasSense ', '')}`} &rarr;
+                </Button>
+            </Grid>
+            {media && (
+                <Grid item xs={alwaysRow ? 6 : 12} md={6}>
+                    <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box' }}>
+                        {media}
+                    </Box>
+                </Grid>
+            )}
+        </Grid>
+    );
+}
+
+FeatureSection.propTypes = {
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    reverse: PropTypes.bool,
+    exploreText: PropTypes.string,
+    alwaysRow: PropTypes.bool,
+    media: PropTypes.node,
+    linkTo: PropTypes.string
+};
+
 const companies = [
     { name: 'Acme Corp', path: 'M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z' },
     { name: 'Globex', path: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z' },
@@ -67,6 +104,29 @@ const companies = [
     { name: 'Stark Industries', path: 'M12 2L2 22h20L12 2zm0 3.99L18.53 19H5.47L12 5.99z' },
     { name: 'Wayne Enterprises', path: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z' },
     { name: 'Massive Dynamic', path: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z' }
+];
+
+const featuredProducts = [
+    {
+        title: 'BiasSense for PostgreSQL',
+        desc: 'Innovate faster with a fully managed PostgreSQL database service for open-source developers.',
+        type: 'pg'
+    },
+    {
+        title: 'BiasSense for MySQL',
+        desc: 'Fully managed community MySQL database service for deploying cloud-native applications.',
+        type: 'mysql'
+    },
+    {
+        title: 'BiasSense Cache for Redis',
+        desc: 'Power fast, scalable applications with an in-memory data store based on Redis.',
+        type: 'redis'
+    },
+    {
+        title: 'BiasSense Managed Cassandra',
+        desc: 'Easily build and scale Cassandra apps with a fully managed, serverless database.',
+        type: 'cassandra'
+    }
 ];
 
 export default function App() {
@@ -148,8 +208,8 @@ export default function App() {
             {/* Hero Section */}
             <Box sx={{ minHeight: 'calc(100vh - 64px)', py: { xs: 6, md: 0 }, display: 'flex', alignItems: 'center', background: 'radial-gradient(100% 100% at top left, #ffffff 0%, #ffffff 98%, rgba(67, 189, 255, 0.4) 98.3%, rgba(255, 255, 255, 0.9) 98.7%, #43BDFF96 100%, #43BDFF 141%)', overflow: 'hidden', width: '100%', boxSizing: 'border-box' }}>
                 <Container maxWidth="lg">
-                    <Grid container spacing={4} alignItems="center">
-                        <Grid item xs={12} md={8}>
+                    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 6 }}>
+                        <Box sx={{ flex: 1, maxWidth: { md: '70%' } }}>
                             <Typography variant="h2" component="h1" sx={{ fontWeight: 600, mb: 3, fontSize: { xs: '2.5rem', md: '3.5rem' }, color: '#000000' }}>
                                 Bias Sense
                             </Typography>
@@ -168,8 +228,8 @@ export default function App() {
                                     Contact Sales
                                 </Button>
                             </Box>
-                        </Grid>
-                    </Grid>
+                        </Box>
+                    </Box>
                 </Container>
             </Box>
 
@@ -210,6 +270,30 @@ export default function App() {
                 </Box>
             </Box>
 
+            {/* What is AI Bias Section */}
+            <Box sx={{ py: { xs: 4, md: 8 }, width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
+                <Container maxWidth="lg">
+                    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 6 }}>
+                        <Box sx={{ flex: 1 }}>
+                            <Typography variant="h3" component="h3" sx={{ fontWeight: 600, mb: 2, color: '#171d25', fontSize: { xs: '2rem', md: '2.5rem' } }}>
+                                What is AI bias?
+                            </Typography>
+                            <Typography variant="h6" sx={{ color: '#50565e', mb: 4, lineHeight: 1.6, fontWeight: 400 }}>
+                                Addressing AI bias is critical to ethical innovation. By identifying the systematic discrimination often found in AI systems, we can prevent technology from reinforcing existing biases or amplifying discrimination, prejudice, and stereotyping.
+                            </Typography>
+                            <Button component={RouterLink} to="/what-is-ai-bias" variant="outlined" size="large" sx={{ borderRadius: '30px', textTransform: 'none', px: 4, py: 1.5, borderColor: '#4299E1', color: '#4299E1', '&:hover': { backgroundColor: 'rgba(66, 153, 225, 0.1)', borderColor: '#3182ce' } }}>
+                                Explore What is AI bias &rarr;
+                            </Button>
+                        </Box>
+                        <Box sx={{ flex: 1, width: '100%' }}>
+                            <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box' }}>
+                                <Box component="img" src="https://placehold.co/800x600/4299E1/FFFFFF/png?text=AI+Bias+Illustration" alt="AI bias illustration" sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </Box>
+                        </Box>
+                    </Box>
+                </Container>
+            </Box>
+
             {/* Products Grid Section */}
             <Box sx={{ py: { xs: 4, md: 8 }, width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
                 <Container maxWidth="lg">
@@ -219,58 +303,15 @@ export default function App() {
                     <Typography variant="body1" sx={{ mb: 8, color: '#50565e', maxWidth: '800px', fontSize: '1.1rem', mx: 'auto', textAlign: 'center' }}>
                         Discover our portfolio of secure, enterprise-grade, fully managed database services that support open-source engines and modern applications.
                     </Typography>
-
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                        {[
-                            {
-                                title: 'BiasSense SQL',
-                                desc: 'Build apps that scale with the pace of your business using managed and intelligent SQL in the cloud.',
-                                type: 'sql'
-                            },
-                            {
-                                title: 'BiasSense Cosmos DB',
-                                desc: 'Fast NoSQL database with open APIs for any scale. Ideal for modern web and mobile applications.',
-                                type: 'cosmos'
-                            },
-                            {
-                                title: 'BiasSense for PostgreSQL',
-                                desc: 'Innovate faster with a fully managed PostgreSQL database service for open-source developers.',
-                                type: 'pg'
-                            },
-                            {
-                                title: 'BiasSense for MySQL',
-                                desc: 'Fully managed community MySQL database service for deploying cloud-native applications.',
-                                type: 'mysql'
-                            },
-                            {
-                                title: 'BiasSense Cache for Redis',
-                                desc: 'Power fast, scalable applications with an in-memory data store based on Redis.',
-                                type: 'redis'
-                            },
-                            {
-                                title: 'BiasSense Managed Cassandra',
-                                desc: 'Easily build and scale Cassandra apps with a fully managed, serverless database.',
-                                type: 'cassandra'
-                            }
-                        ].map((product, index) => (
-                            <Grid container spacing={{ xs: 4, md: 6 }} alignItems="center" key={index} direction={{ xs: 'column', md: index % 2 !== 0 ? 'row-reverse' : 'row' }}>
-                                    <Grid item xs={12} md={6}>
-                                        <Typography variant="h3" component="h3" sx={{ fontWeight: 600, mb: 2, color: '#171d25', fontSize: { xs: '2rem', md: '2.5rem' } }}>
-                                            {product.title}
-                                        </Typography>
-                                        <Typography variant="h6" sx={{ color: '#50565e', mb: 4, lineHeight: 1.6, fontWeight: 400 }}>
-                                            {product.desc}
-                                        </Typography>
-                                        <Button variant="outlined" size="large" sx={{ borderRadius: '30px', textTransform: 'none', px: 4, py: 1.5, borderColor: '#4299E1', color: '#4299E1', '&:hover': { backgroundColor: 'rgba(66, 153, 225, 0.1)', borderColor: '#3182ce' } }}>
-                                            Explore {product.title.replace('BiasSense ', '')} &rarr;
-                                        </Button>
-                                    </Grid>
-                                    <Grid item xs={12} md={6}>
-                                        <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box' }}>
-                                            <MiniIsometric type={product.type} height="100%" />
-                                        </Box>
-                                    </Grid>
-                            </Grid>
+                        {featuredProducts.map((product, index) => (
+                            <FeatureSection 
+                                key={index}
+                                title={product.title}
+                                description={product.desc}
+                                reverse={index % 2 !== 0}
+                                media={<MiniIsometric type={product.type} height="100%" />}
+                            />
                         ))}
                     </Box>
                 </Container>
@@ -281,6 +322,7 @@ export default function App() {
                 <Route path="/assurance-score" element={<AssuranceScore />} />
                 <Route path="/how-it-works" element={<HowItWorks />} />
                 <Route path="/features" element={<Features />} />
+                <Route path="/what-is-ai-bias" element={<WhatIsAIBias />} />
                 <Route path="/contact" element={<Contact />} />
             </Routes>
 
