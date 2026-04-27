@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, Link, Container, Grid, SvgIcon, IconButton, Menu, MenuItem } from '@mui/material';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float } from '@react-three/drei';
-import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Routes, Route, Link as RouterLink } from 'react-router-dom'; // Keep this import
 import WhyBiasSense from './WhyBiasSense'; // Keep this import
 import AssuranceScore from './AssuranceScore'; // Keep this import
@@ -10,6 +9,7 @@ import HowItWorks from './HowItWorks'; // Keep this import
 import Features from './Features'; // Keep this import
 import Contact from './Contact'; // Keep this import
 import WhatIsAIBias from './WhatIsAIBias'; 
+import aiBiasImage from './assets/ai-bias.png';
 
 function AnimatedMesh({ type }) {
     const meshRef = useRef();
@@ -84,16 +84,6 @@ function FeatureSection({ title, description, reverse, exploreText, alwaysRow, m
         </Grid>
     );
 }
-
-FeatureSection.propTypes = {
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    reverse: PropTypes.bool,
-    exploreText: PropTypes.string,
-    alwaysRow: PropTypes.bool,
-    media: PropTypes.node,
-    linkTo: PropTypes.string
-};
 
 const companies = [
     { name: 'Acme Corp', path: 'M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z' },
@@ -287,7 +277,7 @@ export default function App() {
                         </Box>
                         <Box sx={{ flex: 1, width: '100%' }}>
                             <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box' }}>
-                                <Box component="img" src="https://placehold.co/800x600/4299E1/FFFFFF/png?text=AI+Bias+Illustration" alt="AI bias illustration" sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <Box component="img" src={aiBiasImage} alt="AI bias illustration" sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </Box>
                         </Box>
                     </Box>

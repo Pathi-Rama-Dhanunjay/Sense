@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Container, Typography, Paper, List, ListItem } from '@mui/material';
 
 // Vercel runs on Linux and is strictly case-sensitive. It must match the original lowercase git file.
-// import aiBiasImage from './assets/ai-bias.png';
+import aiBiasImage from './assets/ai-bias.png';
 
 export default function WhatIsAIBias() {
     const [activeSection, setActiveSection] = useState(0);
@@ -37,11 +37,11 @@ export default function WhatIsAIBias() {
                             At BiasSense, we help you detect, measure, explain, and remediate bias in AI models and datasets to govern the entire lifecycle ethically.
                         </Typography>
                     </Box>
-                    {/* <Box sx={{ flex: 1, width: '100%' }}>
+                    <Box sx={{ flex: 1, width: '100%' }}>
                         <Box sx={{ width: '100%', borderRadius: '24px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)' }}>
                             <Box component="img" src={aiBiasImage} alt="AI Bias Illustration" sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         </Box>
-                    </Box> */}
+                    </Box>
                 </Box>
             </Container>
 
