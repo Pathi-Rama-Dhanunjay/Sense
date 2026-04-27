@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Container, Typography, Paper, List, ListItem } from '@mui/material';
 
-// Vercel runs on Linux and is strictly case-sensitive. It must match the original lowercase git file.
-import aiBiasImage from './assets/ai-bias.png';
-
 export default function WhatIsAIBias() {
     const [activeSection, setActiveSection] = useState(0);
 
@@ -39,7 +36,7 @@ export default function WhatIsAIBias() {
                     </Box>
                     <Box sx={{ flex: 1, width: '100%' }}>
                         <Box sx={{ width: '100%', borderRadius: '24px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)' }}>
-                            <Box component="img" src={aiBiasImage} alt="AI Bias Illustration" sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <Box component="img" src="https://placehold.co/800x600/4299E1/FFFFFF/png?text=AI+Bias+Illustration" alt="AI Bias Illustration" sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         </Box>
                     </Box>
                 </Box>

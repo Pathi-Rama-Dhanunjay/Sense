@@ -9,7 +9,6 @@ import HowItWorks from './HowItWorks'; // Keep this import
 import Features from './Features'; // Keep this import
 import Contact from './Contact'; // Keep this import
 import WhatIsAIBias from './WhatIsAIBias'; 
-import aiBiasImage from './assets/ai-bias.png';
 
 function AnimatedMesh({ type }) {
     const meshRef = useRef();
@@ -284,7 +283,7 @@ export default function App() {
                         </Box>
                         <Box sx={{ flex: 1, width: '100%' }}>
                             <Box sx={{ height: { xs: '200px', sm: '250px', md: '300px' }, width: '100%', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 1)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxSizing: 'border-box' }}>
-                                <Box component="img" src={aiBiasImage} alt="AI bias illustration" sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <Box component="img" src="https://placehold.co/800x600/4299E1/FFFFFF/png?text=AI+Bias+Illustration" alt="AI bias illustration" sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </Box>
                         </Box>
                     </Box>
