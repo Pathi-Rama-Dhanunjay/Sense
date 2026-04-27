@@ -271,7 +271,14 @@ export default function App() {
                             <Typography variant="h6" sx={{ color: '#50565e', mb: 4, lineHeight: 1.6, fontWeight: 400 }}>
                                 Addressing AI bias is critical to ethical innovation. By identifying the systematic discrimination often found in AI systems, we can prevent technology from reinforcing existing biases or amplifying discrimination, prejudice, and stereotyping.
                             </Typography>
-                            <Button component={RouterLink} to="/what-is-ai-bias" variant="outlined" size="large" sx={{ borderRadius: '30px', textTransform: 'none', px: 4, py: 1.5, borderColor: '#4299E1', color: '#4299E1', '&:hover': { backgroundColor: 'rgba(66, 153, 225, 0.1)', borderColor: '#3182ce' } }}>
+                            <Button 
+                                component={RouterLink} 
+                                to="/what-is-ai-bias" 
+                                onClick={() => window.scrollTo(0, 0)}
+                                variant="outlined" 
+                                size="large" 
+                                sx={{ borderRadius: '30px', textTransform: 'none', px: 4, py: 1.5, borderColor: '#4299E1', color: '#4299E1', '&:hover': { backgroundColor: 'rgba(66, 153, 225, 0.1)', borderColor: '#3182ce' } }}
+                            >
                                 Explore What is AI bias &rarr;
                             </Button>
                         </Box>
